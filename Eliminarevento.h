@@ -28,7 +28,7 @@ void Eliminarevento() {
     std::cout << "Ingrese el índice del evento que desea eliminar: ";
     indice = pedirNumero();
     
-    if (indice >= 1 && indice < agenda.size()) {
+    if (indice >= 1 && indice <= agenda.size()) {
         agenda.erase(agenda.begin() + indice - 1);
         std::cout << "Evento eliminado correctamente." << std::endl;
 

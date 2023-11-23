@@ -49,7 +49,7 @@ void MenuPrincipal()//Esta funcion es el menu principal del programa
         case 4:Eliminarevento();break;
         case 5:MostrarEventosCercanos();break;
         case 6: std::cout << "Saliendo del programa. ¡Hasta luego!" << std::endl; 
-        return ;
+        cerrarPrograma();
         break;
         
         default: std:: cout <<"Elige una opcion del 1 al 6";break;
