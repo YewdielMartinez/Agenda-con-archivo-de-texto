@@ -77,10 +77,8 @@ bool validarRespuesta() {
         }
     }
 }
-bool tieneEspaciosVacios(const std::string& cadena) {
-    return std::find_if(cadena.begin(), cadena.end(), [](char c) {
-        return std::isspace(static_cast<unsigned char>(c)); // Comprueba si el carácter es un espacio en blanco
-    }) != cadena.end();
+bool tieneEspaciosVacios(const std::string& str) {
+    return std::all_of(str.begin(), str.end(), isspace);
 }
 void cerrarPrograma() {
     std::cout << "Cerrando el programa. Adiós.\n";
@@ -113,5 +111,16 @@ bool ValidarPalabraC(const std::string &palabra, const std::string &mensaje) {
         return false;
     }
     return true;
+}
+bool tieneCaracteresEspeciales(const std::string& str) {
+    return std::all_of(str.begin(), str.end(), [](unsigned char c) {
+        return !std::isalnum(c) && !std::isspace(c);
+    });
+}
+std::string ValidarPalabraR(const std::string& mensaje) {
+    std::string palabra;
+    std::cout << mensaje << ": ";
+    std::getline(std::cin, palabra);
+    return palabra;
 }
 #endif

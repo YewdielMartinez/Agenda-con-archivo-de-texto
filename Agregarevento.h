@@ -28,33 +28,28 @@ void Agregarevento() //Funcion agregar evento
     std::string HoraF_TiempoStr;//Declarar como string para leer la hora
     //Aqui empieza la funcion
         std::cout<<"----- Bienvenido al menu de agregar un evento -----"<<std::endl;
-        do{
-        //Aqui agregamos el nombre del evento
-            std :: cout<<"Escribe el nombre del evento: "<<std::endl;
-           std::cin.ignore();
-           eventof.Nombre_Evento = ValidarPalabra("Por favor ingresar un nombre para el evento");
-            if (tieneEspaciosVacios(eventof.Nombre_Evento)){
-                std::cout << "No puede dejar el espacio vacio.Intente de nuevo"<< std::endl;
+
+        do {
+            // Aquí agregamos el nombre del evento
+            std::cout << "Escribe el nombre del evento: " << std::endl;
+            std::getline(std::cin, eventof.Nombre_Evento);
+
+            // Validar si el nombre del evento está vacío, contiene solo espacios o caracteres especiales
+            if (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento)) {
+            std::cout << "El nombre del evento no puede estar vacío, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
             }
-            while(eventof.Nombre_Evento.empty()){
-                std::cout << "No puede dejar el espacio vacio" <<std::endl;
-                eventof.Nombre_Evento = ValidarPalabra("Porfavor ingresar un nombre para el evento");
-            }
-        }while(tieneEspaciosVacios(eventof.Nombre_Evento));
+        } while (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento));
+
     
-        //Aqui agregamos la descripcion de el evento
-        do{
-            std :: cout<<"Escribe la descripcion del evento: "<<std::endl;
-           std::cin.ignore();
-           eventof.Descripcion_Evento = ValidarPalabra("Por favor ingresar una descripcion para el evento");
-            if (tieneEspaciosVacios(eventof.Descripcion_Evento)){
-                std::cout << "No puede dejar el espacio vacio.Intente de nuevo"<< std::endl;
+        do {
+            std::cout << "Escribe la descripcion del evento: " << std::endl;
+            std::getline(std::cin, eventof.Descripcion_Evento);
+
+            // Validar si la descripción del evento está vacía, contiene solo espacios o caracteres especiales
+            if (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento)) {
+                std::cout << "La descripción del evento no puede estar vacía, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
             }
-            while(eventof.Descripcion_Evento.empty()){
-                std::cout << "No puede dejar el espacio vacio" <<std::endl;
-                eventof.Descripcion_Evento = ValidarPalabra("Ingrese una descripcion para el evento");
-            }
-        }while(tieneEspaciosVacios(eventof.Descripcion_Evento));
+        } while (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento));
         //Aqui agregamos la fecha del evento y la hora 
         do 
         {
@@ -125,33 +120,27 @@ void Modificarevento() {
     if (indice >= 1 && static_cast<size_t>(indice) < agenda.size()) {
         Evento& eventof = agenda[indice - 1];
 
-            do{
-            //Aqui agregamos el nombre del evento
-                std :: cout<<"Escribe el nuevo nombre del evento: "<<std::endl;
-                std::cin.ignore();
-                eventof.Nombre_Evento = ValidarPalabra("Por favor ingresar un nombre para el evento");
-                    if (tieneEspaciosVacios(eventof.Nombre_Evento)){
-                    std::cout << "No puede dejar el espacio vacio.Intente de nuevo"<< std::endl;
+           do {
+                std::cout << "Escribe el nuevo nombre del evento: " << std::endl;
+                std::getline(std::cin, eventof.Nombre_Evento);
+
+                // Validar si el nuevo nombre del evento está vacío, contiene solo espacios o caracteres especiales
+                if (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento)) {
+                    std::cout << "El nuevo nombre del evento no puede estar vacío, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
                 }
-                while(eventof.Nombre_Evento.empty()){
-                    std::cout << "No puede dejar el espacio vacio" <<std::endl;
-                    eventof.Nombre_Evento = ValidarPalabra("Porfavor ingresar un nombre para el evento");
-                }
-            }while(tieneEspaciosVacios(eventof.Nombre_Evento));
-        
+            } while (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento));
+
             //Aqui agregamos la descripcion de el evento
-            do{
-                std :: cout<<"Escribe la nueva descripcion del evento: "<<std::endl;
-            std::cin.ignore();
-            eventof.Descripcion_Evento = ValidarPalabra("Por favor ingresar una descripcion para el evento");
-                if (tieneEspaciosVacios(eventof.Descripcion_Evento)){
-                    std::cout << "No puede dejar el espacio vacio.Intente de nuevo"<< std::endl;
+            do {
+                std::cout << "Escribe la nueva descripcion del evento: " << std::endl;
+                std::getline(std::cin, eventof.Descripcion_Evento);
+
+                // Validar si la nueva descripción del evento está vacía, contiene solo espacios o caracteres especiales
+                if (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento)) {
+                    std::cout << "La nueva descripción del evento no puede estar vacía, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
                 }
-                while(eventof.Descripcion_Evento.empty()){
-                    std::cout << "No puede dejar el espacio vacio" <<std::endl;
-                    eventof.Descripcion_Evento = ValidarPalabra("Ingrese una descripcion para el evento");
-                }
-            }while(tieneEspaciosVacios(eventof.Descripcion_Evento));
+            } while (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento));
+
         const char* format = "%d/%m/%Y %H:%M";
         do {
             std::cout << "Ingrese la nueva fecha y hora (Dia/Mes/Año Hora/Minutos): ";
