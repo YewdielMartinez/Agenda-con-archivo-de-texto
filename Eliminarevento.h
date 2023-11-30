@@ -25,19 +25,29 @@ void Eliminarevento() {
         std::cout << i + 1 << ". " << agenda[i].Nombre_Evento << std::endl;
     }
 
-    std::cout << "Ingrese el índice del evento que desea eliminar: ";
-    indice = pedirNumero();
-    
-    if (indice >= 1 && indice <= agenda.size()) {
-        agenda.erase(agenda.begin() + indice - 1);
-        std::cout << "Evento eliminado correctamente." << std::endl;
+    while (true) {
+        std::cout << "Ingrese el índice del evento que desea eliminar (0 para cancelar): ";
+        indice = pedirNumero();
 
-        // Guardar los cambios en el archivo después de eliminar un evento
-        GuardarEnArchivo();
-    } else if (indice != 0) {
-        std::cout << "Índice de evento no válido." << std::endl;
+        if (indice == 0) {
+            // El usuario eligió cancelar
+            MenuPrincipal();
+            return;
+        }
+
+        if (indice >= 1 && indice <= agenda.size()) {
+            break; // Índice válido, salir del bucle
+        } else {
+            std::cout << "Índice de evento no válido. Intente de nuevo." << std::endl;
+        }
     }
-   
+
+    agenda.erase(agenda.begin() + indice - 1);
+    std::cout << "Evento eliminado correctamente." << std::endl;
+
+    // Guardar los cambios en el archivo después de eliminar un evento
+    GuardarEnArchivo();
+
     if (validarRespuesta()) {
         MenuPrincipal();
     } else {
