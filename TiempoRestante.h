@@ -17,7 +17,18 @@
 #include "Funcionesarchivo.h"
 #include "Declaraciones.h"
 #include "MenuPrincipal.h"
+void EliminarEventosPasados() {
+    CargarDesdeArchivo();
+    auto ahora = std::chrono::system_clock::now();
 
+    // Filtrar los eventos que ya han pasado
+    agenda.erase(std::remove_if(agenda.begin(), agenda.end(), [ahora](const Evento& eventof) {
+        return eventof.FechaHora_Tiempo < ahora;
+    }), agenda.end());
+
+    // Guardar los cambios en el archivo después de eliminar eventos pasados
+    GuardarEnArchivo();
+}
 void TiempoRestante() {//Funcion para calcular el tiempo restante para el evento
     Evento eventof;
     auto ahora = std::chrono::system_clock::now();
@@ -75,14 +86,10 @@ void MostrarEventosCercanos() {
     if (!hayEventosCercanos) {
         std::cout << "No hay eventos próximos en las próximas dos semanas." << std::endl;
     }
-
+    
     GuardarEnArchivo(); // Guardar los cambios en el archivo después de mostrar los eventos cercanos
 
-    if (validarRespuesta()) {
-        MenuPrincipal();
-    } else {
-        MostrarEventosCercanos();
-    }
+    MenuPrincipal();
 }
 
 #endif

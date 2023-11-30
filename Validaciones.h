@@ -13,6 +13,7 @@
 #include <fstream>
 #include <limits>
 #include <regex>
+#include <cctype>
 #include "Funcionesarchivo.h"
 #include "Declaraciones.h"
 
@@ -113,14 +114,81 @@ bool ValidarPalabraC(const std::string &palabra, const std::string &mensaje) {
     return true;
 }
 bool tieneCaracteresEspeciales(const std::string& str) {
-    return std::all_of(str.begin(), str.end(), [](unsigned char c) {
-        return !std::isalnum(c) && !std::isspace(c);
+    return !std::all_of(str.begin(), str.end(), [](unsigned char c) {
+        return std::isalnum(c);
     });
 }
-std::string ValidarPalabraR(const std::string& mensaje) {
-    std::string palabra;
-    std::cout << mensaje << ": ";
-    std::getline(std::cin, palabra);
-    return palabra;
+
+// Función para validar si una cadena tiene espacios en blanco al comienzo o al final
+bool tieneEspaciosEnBlanco(const std::string& str) {
+    return !str.empty() && (std::isspace(str.front()) || std::isspace(str.back()));
+}
+
+// Función para validar si una cadena contiene solo letras y espacios
+bool contieneSoloLetrasYEspacios(const std::string& str) {
+    for (char c : str) {
+        if (!std::isalpha(c) && !std::isspace(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Función para ingresar y validar una palabra con espacios
+std::string ValidarPalabraConEspacios(const std::string& mensaje) {
+    std::string input;
+    do {
+        std::cout << mensaje << std::endl;
+        std::getline(std::cin, input);
+
+        if (tieneEspaciosEnBlanco(input)) {
+            std::cout << "No se permiten espacios en blanco al comienzo o al final. Intente de nuevo." << std::endl;
+            continue;
+        }
+
+        size_t lastPos = input.find_last_of(" ");
+        if (lastPos != std::string::npos && !std::isalpha(input[lastPos + 1])) {
+            std::cout << "No se permiten caracteres especiales después de las palabras. Intente de nuevo." << std::endl;
+            continue;
+        }
+
+        if (!contieneSoloLetrasYEspacios(input)) {
+            std::cout << "La cadena solo puede contener letras y espacios. Intente de nuevo." << std::endl;
+            continue;
+        }
+
+        break;
+
+    } while (true);
+
+    return input;
+}
+std::string ValidarTextoConEspacios(const std::string& mensaje) {
+    std::string input;
+    do {
+        std::cout << mensaje << std::endl;
+        std::getline(std::cin, input);
+
+        if (tieneEspaciosEnBlanco(input)) {
+            std::cout << "No se permiten espacios en blanco al comienzo o al final. Intente de nuevo." << std::endl;
+            continue;
+        }
+
+        size_t lastPos = input.find_last_of(" ");
+        if (lastPos != std::string::npos && !std::isalpha(input[lastPos + 1])) {
+            std::cout << "No se permiten caracteres especiales después de las palabras. Intente de nuevo." << std::endl;
+            continue;
+        }
+
+        if (!contieneSoloLetrasYEspacios(input)) {
+            std::cout << "El texto solo puede contener letras y espacios. Intente de nuevo." << std::endl;
+            continue;
+        }
+
+        break;
+
+    } while (true);
+
+    return input;
 }
 #endif

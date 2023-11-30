@@ -19,6 +19,7 @@
 #include "Veragenda.h"
 int main ()
 {
+    EliminarEventosPasados();
     MenuPrincipal();
     return 0;
 }

@@ -30,26 +30,30 @@ void Agregarevento() //Funcion agregar evento
         std::cout<<"----- Bienvenido al menu de agregar un evento -----"<<std::endl;
 
         do {
-            // Aquí agregamos el nombre del evento
             std::cout << "Escribe el nombre del evento: " << std::endl;
-            std::getline(std::cin, eventof.Nombre_Evento);
+            eventof.Nombre_Evento = ValidarPalabraConEspacios("Por favor ingrese un nombre para el evento");
 
-            // Validar si el nombre del evento está vacío, contiene solo espacios o caracteres especiales
-            if (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento)) {
-            std::cout << "El nombre del evento no puede estar vacío, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
-            }
-        } while (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento));
+            if (eventof.Nombre_Evento.empty()) {
+            std::cout << "El nombre del evento no puede estar vacío. Intente de nuevo." << std::endl;
+            continue;
+        }
 
-    
+            break;
+
+        } while (true);
+    // Validar la descripción del evento
         do {
-            std::cout << "Escribe la descripcion del evento: " << std::endl;
-            std::getline(std::cin, eventof.Descripcion_Evento);
+            std::cout << "Escribe la descripción del evento: " << std::endl;
+            eventof.Descripcion_Evento = ValidarTextoConEspacios("Por favor ingrese una descripción para el evento");
 
-            // Validar si la descripción del evento está vacía, contiene solo espacios o caracteres especiales
-            if (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento)) {
-                std::cout << "La descripción del evento no puede estar vacía, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
+            if (eventof.Descripcion_Evento.empty()) {
+                std::cout << "La descripción del evento no puede estar vacía. Intente de nuevo." << std::endl;
+                continue;
             }
-        } while (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento));
+
+            break;
+
+        } while (true);
         //Aqui agregamos la fecha del evento y la hora 
         do 
         {
@@ -107,39 +111,57 @@ void Agregarevento() //Funcion agregar evento
 }
 void Modificarevento() {
     CargarDesdeArchivo();
-    int indice {0};
+        int indice {0};
 
-    std::cout << "Lista de eventos en tu agenda:" << std::endl;
-    for (size_t i = 0; i < agenda.size(); ++i) {
-        std::cout << i + 1 << ". " << agenda[i].Nombre_Evento << std::endl;
-    }
+        std::cout << "Lista de eventos en tu agenda:" << std::endl;
+        for (size_t i = 0; i < agenda.size(); ++i) {
+            std::cout << i + 1 << ". " << agenda[i].Nombre_Evento << std::endl;
+        }
 
-    std::cout << "Ingrese el índice del evento que desea modificar: ";
-    indice = pedirNumero();
+        while (true) {
+            std::cout << "Ingrese el índice del evento que desea modificar (0 para cancelar): ";
+            indice = pedirNumero();
 
-    if (indice >= 1 && static_cast<size_t>(indice) < agenda.size()) {
+            if (indice == 0) {
+                // El usuario eligió cancelar
+                MenuPrincipal();
+                return;
+            }
+
+            if (indice >= 1 && static_cast<size_t>(indice) <= agenda.size()) {
+                break; // Índice válido, salir del bucle
+            } else {
+                std::cout << "Índice de evento no válido. Intente de nuevo." << std::endl;
+            }
+        }
+
         Evento& eventof = agenda[indice - 1];
-
-           do {
-                std::cout << "Escribe el nuevo nombre del evento: " << std::endl;
-                std::getline(std::cin, eventof.Nombre_Evento);
-
-                // Validar si el nuevo nombre del evento está vacío, contiene solo espacios o caracteres especiales
-                if (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento)) {
-                    std::cout << "El nuevo nombre del evento no puede estar vacío, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
-                }
-            } while (eventof.Nombre_Evento.empty() || tieneEspaciosVacios(eventof.Nombre_Evento) || tieneCaracteresEspeciales(eventof.Nombre_Evento));
-
-            //Aqui agregamos la descripcion de el evento
             do {
-                std::cout << "Escribe la nueva descripcion del evento: " << std::endl;
-                std::getline(std::cin, eventof.Descripcion_Evento);
+                std::cout << "Escribe el nuevo nombre del evento: " << std::endl;
+                eventof.Nombre_Evento = ValidarPalabraConEspacios("Por favor ingrese un nombre para el evento");
 
-                // Validar si la nueva descripción del evento está vacía, contiene solo espacios o caracteres especiales
-                if (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento)) {
-                    std::cout << "La nueva descripción del evento no puede estar vacía, contener solo espacios o caracteres especiales. Intente de nuevo." << std::endl;
+                if (eventof.Nombre_Evento.empty()) {
+                    std::cout << "El nombre del evento no puede estar vacío. Intente de nuevo." << std::endl;
+                    continue;
                 }
-            } while (eventof.Descripcion_Evento.empty() || tieneEspaciosVacios(eventof.Descripcion_Evento) || tieneCaracteresEspeciales(eventof.Descripcion_Evento));
+
+                break;
+
+            } while (true);
+
+                //Aqui agregamos la descripcion de el evento
+            do {
+                std::cout << "Escribe la nueva descripción del evento: " << std::endl;
+                eventof.Descripcion_Evento = ValidarTextoConEspacios("Por favor ingrese una descripción para el evento");
+
+                if (eventof.Descripcion_Evento.empty()) {
+                    std::cout << "La descripción del evento no puede estar vacía. Intente de nuevo." << std::endl;
+                    continue;
+                }
+
+                break;
+
+            } while (true);
 
         const char* format = "%d/%m/%Y %H:%M";
         do {
@@ -179,9 +201,7 @@ void Modificarevento() {
 
         std::cout << "Evento modificado correctamente." << std::endl;
         GuardarEnArchivo(); // Guardar los cambios en el archivo
-    } else if (indice != 0) {
-        std::cout << "Índice de evento no válido." << std::endl;
-    }
+
 
     if (validarRespuesta()) {
         MenuPrincipal();
